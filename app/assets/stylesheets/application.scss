@@ -20,11 +20,15 @@
 */
 @import "partials/_vars.scss";
 @import 'bootstrap';
+@import "bootstrap/functions";
+@import "bootstrap/variables";
 @import "blacklight_marc.scss";
 @import "partials/_colors.scss";
 @import "partials/_facets.scss";
 @import "partials/_footer.scss";
 @import "partials/_header.scss";
+@import "partials/_web-header.scss";
+@import "partials/_searchbar.scss";
 @import "partials/_pagination.scss";
 @import "partials/_users.scss";
 @import "partials/_advanced.scss";
@@ -41,3 +45,27 @@
 @import "icons";
 
 @import url("https://fonts.googleapis.com/css?family=PT+Sans");
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 480px,
+  md: 768px,
+  lg: 950px
+);
+
+$container-max-widths: (
+  sm: 750px,
+  md: 950px,
+  lg: 1200px
+);
+
+
+/*@import "font-awesome";*/
+
+.container {
+	max-width: 100%; 
+	@media (min-width: 1200px) {
+    max-width: 1200px;
+    min-width: 1200px;
+	}
+}

@@ -1,12 +1,9 @@
-<nav id="logo-navbar" class="navbar navbar-header bg-white align-items-center" role="navigation">
-  <%= link_to library_link, class: "header-name d-flex align-items-center" do %>
-    <%= image_tag("temple-logo-t-box.svg", class: "header-logo d-inline-flex", alt: "temple-logo") %>
-    <span class="logo-text">University Libraries</span>
-  <% end %>
-</nav>
+
+
+<%= render partial: "/application/header_navbar" %>
 
 <nav id="red-navbar" class="navbar navbar-header navbar-expand-sm bg-red pt-0 pb-0" role="navigation">
-  <div class="d-inline-flex pl-md-3 pr-md-1 w-100 flex-wrap align-items-center">
+  <div class="container d-inline-flex pl-md-3 pr-md-1 w-100 flex-wrap align-items-center">
     <h1 class="col-sm-auto pt-1 pb-1">
       <%= link_to("Library Search", everything_path, id: "catalog-header") %>
     </h1>
