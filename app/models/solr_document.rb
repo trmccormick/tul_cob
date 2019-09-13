@@ -48,12 +48,6 @@ class SolrDocument
     fetch("bound_with_ids", [id])
   end
 
-  def initialize(doc, req = nil)
-    doc[:materials_data] = materials_data
-
-    super doc, req
-  end
-
   ris_field_mappings.merge!(
     TY: Proc.new {
       format = fetch("format", [])
@@ -78,41 +72,21 @@ class SolrDocument
     CN: "call_number_display"
   )
 
-  def materials_data
-    Proc.new {
-      @materials_data ||= alma_availability_mms_ids.map { |id|
-        # return maximum allowed item or lose items.
-        log = { type: "alma_bib_item", mms_id: id, limit: 100 }
-        do_with_json_logger(log) { Alma::BibItem.find(id, limit: 100).filter_missing_and_lost }
-      }.first
-    }
-  end
-
-  # Loads a list of books or other physical materials assoc. to record.
-  # (As apposed to an online only item)
   def materials
-    @materials ||= materials_data[]
-      .map { |material|
-      { title: material["bib_data"]["title"],
-        barcode: barcode(material),
-        call_number: material["holding_data"]["call_number"],
-        library: library_name_from_short_code(material.library),
-        location: location_status(material),
-        availability: availability_status(material) }
-        .with_indifferent_access }
-        .uniq { |material| material.except(:barcode) }
+    @materials ||= @_source["items_json_display"]
+        .uniq { |material| material.except(:description, :item_pid, :item_policy) }
   end
 
-  def material_from_barcode(barcode = nil)
-    materials.select { |material| material[:barcode] == barcode }.first
+  def material_from_holding_id(id = nil)
+    materials.select { |material| material[:holding_id] == id }.first
   end
 
-  def barcodes
-    materials.map { |material| material[:barcode] }
+  def holding_ids
+    materials.map { |material| material[:holding_id] }
   end
 
-  def valid_barcode?(barcode = nil)
-    barcodes.include? barcode
+  def valid_holding_id?(id = nil)
+    holding_ids.include? id
   end
 
   def purchase_order?
@@ -120,10 +94,6 @@ class SolrDocument
   end
 
   private
-    def barcode(item)
-      item["item_data"]["pid"]
-    end
-
     def availability_status(item)
       if item.in_place? && item.non_circulating?
         "Library Use Only"

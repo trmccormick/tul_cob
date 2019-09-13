@@ -74,12 +74,15 @@ RSpec.describe CatalogController, type: :controller do
   end
 
   describe "sms" do
-    let(:doc) { SolrDocument.new(id: "my_fake_doc") }
+    let(:doc) { SolrDocument.new(id: "my_fake_doc", items_json_display: [
+      { holding_id: "foo" },
+      { holding_id: "bar" }
+    ]) }
 
     before do
       allow(search_service).to receive(:fetch).and_return([mock_response, [doc]])
       allow(controller).to receive(:search_service).and_return(search_service)
-      allow(doc).to receive(:material_from_barcode) { "CHOSEN BOOK" }
+      allow(doc).to receive(:material_from_holding_id) { "CHOSEN BOOK" }
     end
 
     context "no selection is present" do
@@ -110,7 +113,7 @@ RSpec.describe CatalogController, type: :controller do
 
     context "A valid location is used" do
       it "does not flash an error and sets the chosen book" do
-        allow(doc).to receive(:valid_barcode?) { true }
+        allow(doc).to receive(:valid_holding_id?) { true }
         post(:sms, params: { id: doc_id, to: "5555555555", carrier: "txt.att.net", barcode: "<3", from: "me" }) rescue nil
 
         expect(request.flash[:error]).to be_nil

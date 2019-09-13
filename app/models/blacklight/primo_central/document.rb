@@ -93,7 +93,7 @@ module Blacklight::PrimoCentral::Document
     []
   end
 
-  def material_from_barcode(b = nil)
+  def material_from_holding_id(b = nil)
     # There are no physical items assoc. to Primo articles.
   end
 

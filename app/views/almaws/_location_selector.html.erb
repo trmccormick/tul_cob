@@ -2,15 +2,15 @@
 <label class="heading location-heading pl-3" for="location">Select a location: </label>
 <div id="locationsList">
 
-	<% materials.each do |material| %>
+	<% materials.each do |holding| %>
 
     <div class="row align-items-top">
-      <input class="sms-form-locations" type="radio" name="barcode" id="<%= material["barcode"] %>" value="<%= material["barcode"] %>">
+      <input class="sms-form-locations" type="radio" name="holding_id" id="<%= holding["holding_id"] %>" value="<%= holding["holding_id"] %>">
 
-      <label for="<%= material["barcode"] %>">
-        <%= material["library"] %> (<%= material["location"] %>)<br />
-        <span>(<%= material["call_number"] %>)</span>
-        <%= render_non_available_status_only(material["availability"]) %>
+      <label for="<%= holding["holding_id"] %>">
+        <%= holding["current_library"] %> (<%= holding["current_location"] %>)<br />
+        <span>(<%= holding["call_number"] %>)</span>
+        <%= render_non_available_status_only(holding["availability"]) %>
         <br />
       </label>
     </div>
