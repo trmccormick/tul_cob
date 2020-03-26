@@ -147,6 +147,14 @@ Rails.application.routes.draw do
     get "alma/availability" => "alma#availability"
   end
 
+  # Primo Availability
+  get "primo_availability/:availability_url", 
+    to: "primo_availability#show",
+    as: "primo_availability",
+    format: false,
+    defaults: {format: "html"},
+    constraints: {availability_url: %r{[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)}}
+
 
   # matches
   match "/404", to: "errors#not_found", via: :all
