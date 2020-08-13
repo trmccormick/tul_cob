@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/honeybadger-io/honeybadger-ruby.git
+  revision: 6e1b826891b9a50f089ffa0d6018cdf269050c2b
+  branch: avoid-ar-connections
+  specs:
+    honeybadger (4.7.1)
+
+GIT
   remote: https://github.com/projectblacklight/blacklight-marc.git
   revision: 582c68255d73e21926234f2ad5bb1ddf37dc6684
   ref: v7.0.0.rc1
@@ -269,7 +276,6 @@ GEM
       guard-compat (~> 1.0)
     hashdiff (1.0.1)
     hashie (3.6.0)
-    honeybadger (4.7.1)
     htmlentities (4.3.4)
     http (4.4.1)
       addressable (~> 2.3)
@@ -600,7 +606,7 @@ DEPENDENCIES
   guard-rspec
   guard-shell
   hashie (~> 3.6.0)
-  honeybadger
+  honeybadger!
   httparty
   jbuilder (~> 2.10)
   jquery-rails
