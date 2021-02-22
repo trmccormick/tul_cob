@@ -59,5 +59,6 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "version": "0.0.0"
 }
