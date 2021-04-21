@@ -285,3 +285,25 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
 end
+
+Devise.setup do |config|
+  config.saml_create_user = true
+  config.saml_update_user = true
+  config.saml_default_user_key = :email
+  config.saml_session_index_key = :session_index
+  config.saml_use_subject = true
+  config.idp_settings_adapter = nil
+  config.saml_configure do |settings|
+    settings.assertion_consumer_service_url = "http://localhost:3000/users/saml/auth" # Update for local
+    settings.protocol_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer = "http://localhost:3000/users/saml/metadata"
+    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    settings.idp_slo_target_url = ""
+
+    #line configuration
+    settings.idp_sso_target_url = "https://dev-05875531.okta.com/app/dev-05875531_idptest_1/exkmbvdlqPh57AiYU5d6/sso/saml"
+    settings.idp_cert_fingerprint = "74:C2:14:78:C7:B6:B4:30:46:AC:E9:46:D4:9B:22:EF:8B:EE:D4:1D:8E:A2:33:0F:A3:29:07:87:7C:DF:1F:39"
+    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2000/09/xmldsig#sha256"
+  end
+end

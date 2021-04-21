@@ -95,10 +95,29 @@ Rails.application.routes.draw do
   post "journals/:id/track" => "journal#track"
   post "databases/:id/track" => "databases#track"
 
-  devise_for :users, controllers: { sessions: "sessions", omniauth_callbacks: "users/omniauth_callbacks" }
+  #devise_for :users, controllers: { sessions: "sessions", omniauth_callbacks: "users/omniauth_callbacks" }
 
+  #devise_scope :user do
+    #get "alma/social_login_callback" => "sessions#social_login_callback"
+  #end
+
+  devise_for :users, skip: :saml_authenticatable, controllers: {
+    registrations: "users/registrations",
+    sessions: "sessions",
+    #omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: "users/passwords"
+  }
+
+  # opt-in saml_authenticatable
   devise_scope :user do
-    get "alma/social_login_callback" => "sessions#social_login_callback"
+    scope "users", controller: "saml_sessions" do
+      get "alma/social_login_callback" => "sessions#social_login_callback"
+      get :new, path: "saml/sign_in", as: :new_user_sso_session
+      post :create, path: "saml/auth", as: :user_sso_session
+      get :destroy, path: "sign_out", as: :destroy_user_sso_session
+      get :metadata, path: "saml/metadata", as: :metadata_user_sso_session
+      match :idp_sign_out, path: "saml/idp_sign_out", via: [:get, :post]
+    end
   end
 
   # auth

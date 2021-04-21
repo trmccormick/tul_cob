@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/apokalipto/devise_saml_authenticatable.git
+  revision: 8fd148aeb6c42f0b4c98acc5a29d3732fab1ec09
+  specs:
+    devise_saml_authenticatable (1.6.3)
+      devise (> 2.0.0)
+      ruby-saml (~> 1.7)
+
+GIT
   remote: https://github.com/dkinzer/blacklight_range_limit.git
   revision: 202a837311fa7f33b3fe64512a486453fc92232d
   branch: issue-168-use-blackligh-config-for-constraints
@@ -496,6 +504,9 @@ GEM
       rubocop (>= 0.90.0, < 2.0)
     ruby-prof (1.4.3)
     ruby-progressbar (1.11.0)
+    ruby-saml (1.12.2)
+      nokogiri (>= 1.10.5)
+      rexml
     ruby2_keywords (0.0.4)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -635,6 +646,7 @@ DEPENDENCIES
   database_cleaner
   devise!
   devise-guests (~> 0.7)
+  devise_saml_authenticatable!
   dotenv-rails
   execjs
   ezwadl

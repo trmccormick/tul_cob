@@ -7,6 +7,9 @@
       <%= link_to t("devise.sessions.new.temple_users") , omniauth_authorize_path(resource_name, :shibboleth, target: params[:redirect_to]), method: :post %>
     </li>
     <li>
+      <%= link_to t("Devise SAML Authenticatable Test ") , "/users/saml/sign_in" %>
+    </li>
+    <li>
       <%= link_to t("devise.sessions.new.pa_users"), alma_social_login_url(redirect_to: params[:redirect_to]) %>
     </li>
     <li>

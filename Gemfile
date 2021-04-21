@@ -81,6 +81,7 @@ gem "rsolr", "~> 2.3"
 # We will want to remove the branch once devise has been updated.
 gem "devise", github: "heartcombo/devise", branch: "ca-omniauth-2"
 gem "devise-guests", "~> 0.7"
+gem "devise_saml_authenticatable", git: "https://github.com/apokalipto/devise_saml_authenticatable.git"
 gem "alma", git: "https://github.com/tulibraries/alma_rb.git", branch: "main"
 gem "cdm", git: "https://github.com/tulibraries/cdm_rb.git", branch: "master"
 gem "lc_solr_sortable", git: "https://github.com/tulibraries/lc_solr_sortable", branch: "main"
