@@ -40,6 +40,12 @@
       <%= f.label :remember_me %>
     </div>
   <% end -%>
+  
+  <ul class="pb-3">
+    <li>
+      <%= link_to t("Devise SAML Authenticatable Test ") , "/users/saml/sign_in" %>
+    </li>
+  </ul>
 
   <div class="actions">
     <%= f.submit "Log in", class: "btn btn-primary py-1" %>
