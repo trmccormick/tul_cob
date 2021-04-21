@@ -103,8 +103,8 @@ Rails.application.routes.draw do
 
   devise_for :users, skip: :saml_authenticatable, controllers: {
     registrations: "user/registrations",
-    sessions: "user/sessions",
-    passwords: "user/passwords"
+    sessions: "sessions",
+    passwords: "passwords"
   }
 
   # opt-in saml_authenticatable
