@@ -1,53 +1,67 @@
-# frozen_string_literal: true
-
 # Be sure to restart your server when you modify this file.
 #
-# This file contains migration options to ease your Rails 5.0 upgrade.
+# This file contains migration options to ease your Rails 6.1 upgrade.
 #
-# Read the Rails 5.0 release notes for more info on each option.
-
-# Enable per-form CSRF tokens. Previous versions had false.
-Rails.application.config.action_controller.per_form_csrf_tokens = true
-
-# Enable origin-checking CSRF mitigation. Previous versions had false.
-Rails.application.config.action_controller.forgery_protection_origin_check = true
-
-# Make Ruby 2.4 preserve the timezone of the receiver when calling `to_time`.
-# Previous versions had false.
-ActiveSupport.to_time_preserves_timezone = true
-
-# Require `belongs_to` associations by default. Previous versions had false.
-Rails.application.config.active_record.belongs_to_required_by_default = true
-
-# Configure SSL options to enable HSTS with subdomains. Previous versions had false.
-Rails.application.config.ssl_options = { hsts: { subdomains: true } }
-
-
-
-# Make Active Record use stable #cache_key alongside new #cache_version method.
-# This is needed for recyclable cache keys.
-Rails.application.config.active_record.cache_versioning = true
-
-# Use AES-256-GCM authenticated encryption for encrypted cookies.
-# Also, embed cookie expiry in signed or encrypted cookies for increased security.
+# Once upgraded flip defaults one by one to migrate to the new default.
 #
-# This option is not backwards compatible with earlier Rails versions.
-# It's best enabled when your entire app is migrated and stable on 5.2.
+# Read the Guide for Upgrading Ruby on Rails for more info on each option.
+
+# Support for inversing belongs_to -> has_many Active Record associations.
+# Rails.application.config.active_record.has_many_inversing = true
+
+# Track Active Storage variants in the database.
+# Rails.application.config.active_storage.track_variants = true
+
+# Apply random variation to the delay when retrying failed jobs.
+# Rails.application.config.active_job.retry_jitter = 0.15
+
+# Stop executing `after_enqueue`/`after_perform` callbacks if
+# `before_enqueue`/`before_perform` respectively halts with `throw :abort`.
+# Rails.application.config.active_job.skip_after_callbacks_if_terminated = true
+
+# Specify cookies SameSite protection level: either :none, :lax, or :strict.
 #
-# Existing cookies will be converted on read then written with the new scheme.
-Rails.application.config.action_dispatch.use_authenticated_cookie_encryption = true
+# This change is not backwards compatible with earlier Rails versions.
+# It's best enabled when your entire app is migrated and stable on 6.1.
+# Rails.application.config.action_dispatch.cookies_same_site_protection = :lax
 
-# Use AES-256-GCM authenticated encryption as default cipher for encrypting messages
-# instead of AES-256-CBC, when use_authenticated_message_encryption is set to true.
-Rails.application.config.active_support.use_authenticated_message_encryption = true
+# Generate CSRF tokens that are encoded in URL-safe Base64.
+#
+# This change is not backwards compatible with earlier Rails versions.
+# It's best enabled when your entire app is migrated and stable on 6.1.
+# Rails.application.config.action_controller.urlsafe_csrf_tokens = true
 
-# Add default protection from forgery to ActionController::Base instead of in
-# ApplicationController.
-Rails.application.config.action_controller.default_protect_from_forgery = true
+# Specify whether `ActiveSupport::TimeZone.utc_to_local` returns a time with an
+# UTC offset or a UTC time.
+# ActiveSupport.utc_to_local_returns_utc_offset_times = true
 
-# Store boolean values are in sqlite3 databases as 1 and 0 instead of 't' and
-# 'f' after migrating old data.
-Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+# Change the default HTTP status code to `308` when redirecting non-GET/HEAD
+# requests to HTTPS in `ActionDispatch::SSL` middleware.
+# Rails.application.config.action_dispatch.ssl_default_redirect_status = 308
 
-# Use SHA-1 instead of MD5 to generate non-sensitive digests, such as the ETag header.
-Rails.application.config.active_support.use_sha1_digests = true
+# Use new connection handling API. For most applications this won't have any
+# effect. For applications using multiple databases, this new API provides
+# support for granular connection swapping.
+# Rails.application.config.active_record.legacy_connection_handling = false
+
+# Make `form_with` generate non-remote forms by default.
+# Rails.application.config.action_view.form_with_generates_remote_forms = false
+
+# Set the default queue name for the analysis job to the queue adapter default.
+# Rails.application.config.active_storage.queues.analysis = nil
+
+# Set the default queue name for the purge job to the queue adapter default.
+# Rails.application.config.active_storage.queues.purge = nil
+
+# Set the default queue name for the incineration job to the queue adapter default.
+# Rails.application.config.action_mailbox.queues.incineration = nil
+
+# Set the default queue name for the routing job to the queue adapter default.
+# Rails.application.config.action_mailbox.queues.routing = nil
+
+# Set the default queue name for the mail deliver job to the queue adapter default.
+# Rails.application.config.action_mailer.deliver_later_queue_name = nil
+
+# Generate a `Link` header that gives a hint to modern browsers about
+# preloading assets when using `javascript_include_tag` and `stylesheet_link_tag`.
+# Rails.application.config.action_view.preload_links_header = true
