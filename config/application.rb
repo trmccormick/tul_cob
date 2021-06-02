@@ -43,6 +43,7 @@ module Tulcob
       g.fixture_replacement :factory_bot
     end
     #config.log_level = :debug
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end
 
